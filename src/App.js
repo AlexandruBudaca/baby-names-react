@@ -1,23 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import babyNamesData from "./babyNamesData.json";
+import Names from "./Names";
 
 function App() {
+  babyNamesData.sort((a, b) => (a.name > b.name ? 1 : -1));
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="container">
+          <div className="container-box">
+            <div>
+              <input></input>
+            </div>
+            <div className="favourites">
+              <p>Favourites: </p>
+            </div>
+            <div className="container-names">
+              {babyNamesData.map((baby) => (
+                <Names key={baby.id} {...baby} />
+              ))}
+            </div>
+          </div>
+        </div>
       </header>
     </div>
   );
