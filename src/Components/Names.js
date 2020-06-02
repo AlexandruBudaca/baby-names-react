@@ -2,16 +2,21 @@ import React from "react";
 
 const Names = ({ data, favNames, setFavNames }) => {
   return data.map((name) => (
-    <div
+    <button
       className={name.sex === "m" ? "name-m" : "name-f"}
       key={name.id}
       onClick={() => {
-        setFavNames(data.filter((name) => name.id === data.id));
+        if (data.some((names) => names.id === name.id)) {
+          setFavNames([
+            ...favNames,
+            data.find((favName) => favName.id === name.id),
+          ]);
+        }
       }}
     >
       <i className={name.sex === "m" ? "fas fa-mars" : "fas fa-venus"}></i>
       {name.name}
-    </div>
+    </button>
   ));
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import babyNamesData from "./babyNamesData.json";
 import Names from "./Components/Names";
@@ -7,6 +7,7 @@ import Search from "./Components/Search";
 function App() {
   const [searchNames, setSearchNames] = useState("");
   const [favNames, setFavNames] = useState([]);
+
   const filterNames = babyNamesData.filter((babyName) =>
     babyName.name.includes(searchNames.toLowerCase())
   );
@@ -24,7 +25,23 @@ function App() {
               Favorites:
               <div>
                 {favNames.map((name) => (
-                  <p>{name.name}</p>
+                  <button
+                    className={name.sex === "m" ? "name-m" : "name-f"}
+                    key={name.id}
+                    onClick={(e) => {
+                      let filteredArray = favNames.filter(
+                        (babyName) => babyName.name !== name.name
+                      );
+                      setFavNames(filteredArray);
+                    }}
+                  >
+                    <i
+                      className={
+                        name.sex === "m" ? "fas fa-mars" : "fas fa-venus"
+                      }
+                    ></i>
+                    {name.name}
+                  </button>
                 ))}
               </div>
             </div>
