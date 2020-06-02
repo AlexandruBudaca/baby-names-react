@@ -32,17 +32,17 @@ input {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 .name-m {
   width: 150px;
   height: 30px;
-  padding: 0 10px;
   margin: 5px;
   border-radius: 10px;
   background-color: black;
   color: lightblue;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .name-f {
@@ -52,17 +52,17 @@ input {
   background-color: black;
   border-radius: 10px;
   color: palevioletred;
-}
-
-span {
-  padding: 8px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .fa-mars {
+  padding-right: 10px;
   color: lightblue;
 }
 
 .fa-venus {
+  padding-right: 10px;
   color: palevioletred;
 }
 
@@ -76,7 +76,7 @@ span {
   border: 2px solid palevioletred;
 }
 
-.favourites {
+.favorites {
   text-align: left;
   margin: 0 50px;
 }
