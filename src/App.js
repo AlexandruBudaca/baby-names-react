@@ -1,48 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import babyNamesData from "./babyNamesData.json";
 import Names from "./Components/Names";
 import Search from "./Components/Search";
+import Favorites from "./Components/Favorites";
 
 function App() {
   const [searchNames, setSearchNames] = useState("");
+  const [filterNames, setFilterNames] = useState([]);
   const [favNames, setFavNames] = useState([]);
 
-  const filterNames = babyNamesData.filter((babyName) =>
-    babyName.name.includes(searchNames.toLowerCase())
-  );
+  if (filterNames.length === 0) {
+    setFilterNames(babyNamesData);
+  }
 
-  filterNames.sort((a, b) => (a.name > b.name ? 1 : -1));
+  const addFavorites = (name) => {
+    setFavNames((names) => [...names, name]);
+
+    const updNames = filterNames.filter((babyName) => babyName.id !== name.id);
+    setFilterNames(updNames);
+  };
+
+  const removeFavorites = (name) => {
+    setFavNames(favNames.filter((babyName) => babyName.id !== name.id));
+
+    setFilterNames([...filterNames, name]);
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <div className="container">
           <div className="container-box">
-            <Search setSearch={setSearchNames} />
+            <Search
+              data={babyNamesData}
+              search={searchNames}
+              setSearch={setSearchNames}
+              setFilterName={setFilterNames}
+            />
 
             <div className="favorites">
               Favorites:
               <div>
-                {favNames.map((name) => (
-                  <button
-                    className={name.sex === "m" ? "name-m" : "name-f"}
-                    key={name.id}
-                    onClick={(e) => {
-                      let filteredArray = favNames.filter(
-                        (babyName) => babyName.name !== name.name
-                      );
-                      setFavNames(filteredArray);
-                    }}
-                  >
-                    <i
-                      className={
-                        name.sex === "m" ? "fas fa-mars" : "fas fa-venus"
-                      }
-                    ></i>
-                    {name.name}
-                  </button>
-                ))}
+                <Favorites data={favNames} setFavNames={removeFavorites} />
               </div>
             </div>
 
@@ -51,11 +51,7 @@ function App() {
             </div>
 
             <div className="container-names">
-              <Names
-                data={filterNames}
-                favNames={favNames}
-                setFavNames={setFavNames}
-              />
+              <Names data={filterNames} setFavNames={addFavorites} />
             </div>
           </div>
         </div>

@@ -1,12 +1,18 @@
 import React from "react";
 
-const Search = (props) => {
+const Search = ({ data, search, setSearch, setFilterName }) => {
   return (
     <div>
       <input
         type="text"
         placeholder="Search names"
-        onChange={(e) => props.setSearch(e.target.value)}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          const filterBabyNames = data.filter((babyName) =>
+            babyName.name.includes(search.toLowerCase())
+          );
+          setFilterName(filterBabyNames);
+        }}
       ></input>
     </div>
   );
