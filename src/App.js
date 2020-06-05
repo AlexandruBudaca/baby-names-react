@@ -11,14 +11,11 @@ function App() {
 
   const addFavorites = (name) => {
     setFavNames((names) => [...names, name]);
-
-    const updNames = filterNames.filter((babyName) => babyName.id !== name.id);
-    setFilterNames(updNames);
+    setFilterNames(filterNames.filter((babyName) => babyName.id !== name.id));
   };
 
   const removeFavorites = (name) => {
     setFavNames(favNames.filter((babyName) => babyName.id !== name.id));
-
     setFilterNames([...filterNames, name]);
   };
 
