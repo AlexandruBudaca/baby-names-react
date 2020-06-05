@@ -3,10 +3,10 @@ import React from "react";
 const Names = ({ data, setFavNames }) => {
   return data
     .sort((a, b) => (a.name > b.name ? 1 : -1))
-    .map((name) => (
+    .map((name, index) => (
       <button
         className={name.sex === "m" ? "name-m" : "name-f"}
-        key={name.id}
+        key={index}
         onClick={() => {
           setFavNames(name);
         }}

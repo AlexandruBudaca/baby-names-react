@@ -6,13 +6,8 @@ import Search from "./Components/Search";
 import Favorites from "./Components/Favorites";
 
 function App() {
-  const [searchNames, setSearchNames] = useState("");
-  const [filterNames, setFilterNames] = useState([]);
+  const [filterNames, setFilterNames] = useState(babyNamesData);
   const [favNames, setFavNames] = useState([]);
-
-  if (filterNames.length === 0) {
-    setFilterNames(babyNamesData);
-  }
 
   const addFavorites = (name) => {
     setFavNames((names) => [...names, name]);
@@ -32,12 +27,7 @@ function App() {
       <header className="App-header">
         <div className="container">
           <div className="container-box">
-            <Search
-              data={babyNamesData}
-              search={searchNames}
-              setSearch={setSearchNames}
-              setFilterName={setFilterNames}
-            />
+            <Search data={babyNamesData} setFilterNames={setFilterNames} />
 
             <div className="favorites">
               Favorites:
